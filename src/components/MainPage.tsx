@@ -1,8 +1,12 @@
-import React from "react";
 import Navbar from "./Navbar";
-
+import PromoInfo from "./PromoInfo";
 const MainPage = () => {
-  return <Navbar />;
+  return (
+    <>
+      <PromoInfo />
+      <Navbar />
+    </>
+  );
 };
 
 export default MainPage;
