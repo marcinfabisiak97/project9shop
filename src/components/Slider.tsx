@@ -1,16 +1,23 @@
+import { useState } from "react";
 import styled from "styled-components";
 import ArrowBackIosNewOutlinedIcon from "@mui/icons-material/ArrowBackIosNewOutlined";
 import ArrowForwardIosOutlinedIcon from "@mui/icons-material/ArrowForwardIosOutlined";
-import Images from "../assets/exports";
+import { slidesData } from "../data";
 type ArrowProps = {
   direction: "left" | "right"; // Define the direction prop with valid values
+};
+type SlideProps = {
+  background: string; // Define the direction prop with valid values
+};
+type WrapperProps = {
+  slideIndex: number;
 };
 const Container = styled.div`
   width: 100%;
   height: 100vh;
   display: flex;
-
   position: relative;
+  overflow: hidden;
 `;
 const Arrow = styled.div<ArrowProps>`
   width: 50px;
@@ -27,49 +34,77 @@ const Arrow = styled.div<ArrowProps>`
   right: ${(props) => (props.direction === "right" ? "10px" : null)};
   margin: auto;
   cursor: pointer;
+  z-index: 2;
 `;
-const Wrapper = styled.div`
+const Wrapper = styled.div<WrapperProps>`
   height: 100%;
+  display: flex;
+  transition: all 0.8s ease;
+  transform: translateX(${(props) => props.slideIndex * -100}vw);
 `;
-const Slide = styled.div`
+const Slide = styled.div<SlideProps>`
   width: 100vw;
   height: 100vh;
   display: flex;
   align-items: center;
+  background-color: ${(props) => props.background};
 `;
 const ImageContainer = styled.div`
   height: 100%;
   flex: 1;
 `;
 const Image = styled.img`
-  height: 80%;
+  height: 70%;
 `;
 const InfoContainer = styled.div`
   flex: 1;
   padding: 50px;
 `;
-const Title = styled.h2``;
-const Description = styled.p``;
-const Button = styled.button``;
+const Title = styled.h2`
+  font-size: 70px;
+`;
+const Description = styled.p`
+  margin: 50px 0;
+  font-size: 50px;
+  font-weight: 500;
+  letter-spacing: 3px;
+`;
+const Button = styled.button`
+  padding: 10px;
+  font-size: 20px;
+  background-color: transparent;
+  cursor: pointer;
+`;
 const Slider = () => {
+  const [slideIndex, setSlideIndex] = useState(0);
+  const handleClick = (direction: string) => {
+    if (direction === "left") {
+      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+    }
+    if (direction === "right") {
+      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+    }
+  };
   return (
     <Container>
-      <Arrow direction="left">
+      <Arrow direction="left" onClick={() => handleClick("left")}>
         <ArrowBackIosNewOutlinedIcon />
       </Arrow>
-      <Wrapper>
-        <Slide>
-          <ImageContainer>
-            <Image src={Images.blender} />
-          </ImageContainer>
-          <InfoContainer>
-            <Title>Blender</Title>
-            <Description>Great for hopping</Description>
-            <Button>show me</Button>
-          </InfoContainer>
-        </Slide>
+      <Wrapper slideIndex={slideIndex}>
+        {slidesData.map((slide) => (
+          <Slide background={slide.background}>
+            <ImageContainer>
+              <Image src={slide.image} />
+            </ImageContainer>
+            <InfoContainer>
+              <Title>{slide.title}</Title>
+              <Description>{slide.description}</Description>
+              <Button>show me</Button>
+            </InfoContainer>
+          </Slide>
+        ))}
       </Wrapper>
-      <Arrow direction="right">
+      <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowForwardIosOutlinedIcon />
       </Arrow>
     </Container>
