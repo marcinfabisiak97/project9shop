@@ -3,9 +3,14 @@ const Container = styled.div`
   height: 30px;
   background-color: lightblue;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
 `;
-const PopupInfo = () => {
-  return <Container>Hej</Container>;
+const PromoInfo = () => {
+  return <Container>Find the best deal</Container>;
 };
 
-export default PopupInfo;
+export default PromoInfo;
