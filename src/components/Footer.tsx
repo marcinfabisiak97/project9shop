@@ -2,8 +2,10 @@ import styled from "styled-components";
 import RoomOutlinedIcon from "@mui/icons-material/RoomOutlined";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
+import { mobile } from "../responsive";
 const Container = styled.div`
   display: flex;
+  ${mobile({ flexDirection: "column" })};
 `;
 const Left = styled.div`
   flex: 1;

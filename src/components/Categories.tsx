@@ -1,11 +1,11 @@
 import styled from "styled-components";
 import { categories } from "../data";
 import CategoryItem from "./CategoryItem";
-import { CategoryItemProps } from "./CategoryItem";
-
+import { mobile } from "../responsive";
 const Container = styled.div`
   display: flex;
   justify-content: space-around;
+  ${mobile({ flexDirection: "column", justifyContent: "center" })};
 `;
 const Categories: React.FC = () => {
   return (

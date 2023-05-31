@@ -2,6 +2,7 @@ import styled from "styled-components";
 import SearchIcon from "@mui/icons-material/Search";
 import { Badge } from "@mui/material";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import { mobile } from "../responsive";
 const Container = styled.div`
   height: 100%;
 `;
@@ -10,10 +11,12 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  ${mobile({ flexWrap: "wrap" })};
 `;
 const Language = styled.span`
   font-size: 12px;
   cursor: pointer;
+  ${mobile({ display: "none" })};
 `;
 const SearchContainer = styled.div`
   border: 1px solid black;
